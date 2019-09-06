@@ -19,6 +19,11 @@ namespace Test
             game.Roll(5);
             game.Roll(5);
         }
+
+        private void RollStrike()
+        {
+            game.Roll(10);
+        }
         private void RollMany(int rolls, int pins)
         {
             for (var i = 0; i < rolls; i++)
@@ -56,12 +61,20 @@ namespace Test
         [Test()]
         public void Game_Strike_ReturnsScorePlusDoubleBonus()
         {
-            game.Roll(10);
+            RollStrike();
             game.Roll(0);
             game.Roll(2);
             RollMany(16, 0);
 
             Assert.That(game.Score(), Is.EqualTo(14));
+        }
+
+        [Test()]
+        public void Game_Perfect_ReturnsPerfectGameScore()
+        {
+            RollMany(12, 10);
+
+            Assert.That(game.Score(), Is.EqualTo(300));
         }
 
     }
