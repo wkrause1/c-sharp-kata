@@ -18,15 +18,21 @@ namespace Test
             var roll = 0;
             for (var frame = 0; frame < 10; frame++)
             {
-                if (Spare(roll))
+                if (Strike(roll))
                 {
-                    score += 10 + rolls[roll + 2];
+                    score += StrikeBonus(roll);
+                    roll++;
+                }
+                else if (Spare(roll))
+                {
+                    score += SpareBonus(roll);
+                    roll += 2;
                 }
                 else
                 {
-                    score += rolls[roll] + rolls[roll + 1];
+                    score += NormalScore(roll);
+                    roll += 2;
                 }
-                roll += 2;
             }
             return score;
         }
@@ -34,6 +40,26 @@ namespace Test
         private bool Spare (int roll)
         {
             return rolls[roll] + rolls[roll + 1] == 10;
+        }
+
+        private int NormalScore(int roll)
+        {
+            return rolls[roll] + rolls[roll + 1];
+        }
+
+        private int SpareBonus(int roll)
+        {
+            return 10 + rolls[roll + 2];
+        }
+
+        private int StrikeBonus(int roll)
+        {
+            return 10 + rolls[roll + 1] + rolls[roll + 2];
+        }
+
+        private bool Strike(int roll)
+        {
+            return rolls[roll] == 10;
         }
     }
 }

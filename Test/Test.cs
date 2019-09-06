@@ -53,5 +53,16 @@ namespace Test
             Assert.That(game.Score(), Is.EqualTo(16));
         }
 
+        [Test()]
+        public void Game_Strike_ReturnsScorePlusDoubleBonus()
+        {
+            game.Roll(10);
+            game.Roll(0);
+            game.Roll(2);
+            RollMany(16, 0);
+
+            Assert.That(game.Score(), Is.EqualTo(14));
+        }
+
     }
 }
