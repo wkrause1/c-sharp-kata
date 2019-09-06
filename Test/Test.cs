@@ -6,17 +6,47 @@ namespace Test
     [TestFixture()]
     public class Test
     {
-        [Test()]
-        public void When_MatrixIsLessThanThreeByThree_Then_IsMagicSquare_False() 
+        private Game game;
+
+        [SetUp]
+        public void TestSetup()
         {
-            var matrix = new List<List<decimal>>
-            {
-                new List<decimal> {1.0m, 2.0m},
-                new List<decimal> {3.0m, 4.0m }
-            };
-            Assert.IsFalse(Game.isMagicSquare(matrix));
+            game = new Game();
         }
 
+        private void RollMany(int rolls, int pins)
+        {
+            for (var i = 0; i < rolls; i++)
+            {
+                game.Roll(pins);
+            }
+        }
+
+        [Test()]
+        public void Game_AllZeros_ReturnsSCore()
+        {
+            var game = new Game();
+
+            for (var i = 0; i < 20; i++)
+            {
+                game.Roll(0);
+            }
+
+            Assert.That(game.Score(), Is.EqualTo(0));
+        }
+
+        [Test()]
+        public void Game_AllOnes_ReturnsScore()
+        {
+            var game = new Game();
+
+            for (var i = 0; i < 20; i++)
+            {
+                game.Roll(1);
+            }
+
+            Assert.That(game.Score(), Is.EqualTo(20));
+        }
 
     }
 }

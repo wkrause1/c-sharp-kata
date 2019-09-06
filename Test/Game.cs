@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 namespace Test
 {
-    public static class Game
+    public class Game
     {
+        private int score;
        
-        public static bool isMagicSquare(List<List<decimal>> matrix)
+        public void Roll(int pins)
         {
-            return false;
+            score += pins;
+        }
+
+        public int Score()
+        {
+            return score;
         }
     }
 }
